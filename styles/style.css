@@ -1,0 +1,60 @@
+.container {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.board {
+  width: 350px;
+  height: 360px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.col-4 {
+  width: 33.33%;
+  height: 33.33%;
+  float: left;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  margin: 10px;
+  float: left;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.message {
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: red;
+  margin: 10px;
+}
+
+.button {
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#reset {
+  background-color: green;
+}
