@@ -1,137 +1,135 @@
 "use strict";
 
-/**
-Create the game board.
-Implement the player factory function.
-Handle player moves.
-Check for a win or draw.
-Switch between players.
- */
+(function initializeGame() {
+  let gameBoard = {
+    1: ["-"],
+    2: ["-"],
+    3: ["-"],
+    4: ["-"],
+    5: ["-"],
+    6: ["-"],
+    7: ["-"],
+    8: ["-"],
+    9: ["-"],
+  };
 
-// (function initializeGame() {
-const gameBoard = {
-  1: ["O"],
-  2: ["O"],
-  3: ["O"],
-  4: ["X"],
-  5: ["O"],
-  6: ["X"],
-  7: ["O"],
-  8: ["O"],
-  9: ["X"],
-};
+  let players = [];
+  let currentPlayer;
 
-let players = [];
-let currentPlayer = null;
+  const createPlayer = (symbol) => {
+    const name = prompt("Enter your name");
+    players.push({ name, symbol });
+    return { name, symbol };
+  };
 
-const createPlayer = (symbol) => {
-  const name = prompt("Enter your name");
-  players.push({ name, symbol });
-  return { name, symbol };
-};
+  (function createPlayers() {
+    while (players.length < 2) {
+      if (players.length < 1) {
+        createPlayer("X");
+      } else {
+        createPlayer("O");
+      }
+    }
+  })();
 
-const displayBoard = () => {
-  let board = `${gameBoard[1]} | ${gameBoard[2]} | ${gameBoard[3]}
+  currentPlayer = players[0];
+
+  const makeMove = (player) => {
+    const spot = prompt(
+      `Current Board\n${displayBoard()}\n${
+        currentPlayer.name
+      }'s turn. Your symbol is ${currentPlayer.symbol}\nChoose a spot.`
+    );
+    if (spot) {
+      if (gameBoard[spot][0] !== "-") {
+        alert("Spot already taken. Try again.");
+        makeMove(player);
+      } else {
+        gameBoard[spot] = player.symbol;
+      }
+    } else {
+      alert("Please enter a spot.");
+      makeMove(player);
+    }
+  };
+
+  const displayBoard = () => {
+    let board = `${gameBoard[1]} | ${gameBoard[2]} | ${gameBoard[3]}
 ${gameBoard[4]} | ${gameBoard[5]} | ${gameBoard[6]}
 ${gameBoard[7]} | ${gameBoard[8]} | ${gameBoard[9]}
-       `;
-  alert(board);
-  return board;
-};
+`;
+    return board;
+  };
 
-const handlePlayerMove = () => {};
+  const resetGameBoard = () => {
+    for (let board in gameBoard) {
+      gameBoard[board] = "-";
+    }
+  };
 
-const makeMove = (player) => {
-  const spot = prompt(`Current Board\n${displayBoard()}\nChoose a spot.`);
-  gameBoard[spot] = player.symbol;
-};
-
-const checkWin = (player) => {
-  if (
-    (gameBoard[1] === player.symbol &&
-      gameBoard[2] === player.symbol &&
-      gameBoard[3] === player.symbol) ||
-    (gameBoard[4] === player.symbol &&
-      gameBoard[5] === player.symbol &&
-      gameBoard[6] === player.symbol) ||
-    (gameBoard[7] === player.symbol &&
-      gameBoard[8] === player.symbol &&
-      gameBoard[9] === player.symbol) ||
-    (gameBoard[1] === player.symbol &&
-      gameBoard[4] === player.symbol &&
-      gameBoard[7] === player.symbol) ||
-    (gameBoard[2] === player.symbol &&
-      gameBoard[5] === player.symbol &&
-      gameBoard[8] === player.symbol) ||
-    (gameBoard[3] === player.symbol &&
-      gameBoard[6] === player.symbol &&
-      gameBoard[9] === player.symbol) ||
-    (gameBoard[1] === player.symbol &&
-      gameBoard[5] === player.symbol &&
-      gameBoard[9] === player.symbol) ||
-    (gameBoard[3] === player.symbol &&
-      gameBoard[5] === player.symbol &&
-      gameBoard[7] === player.symbol)
-  ) {
-    console.log(`${player.name} won!🏆`);
-    return true;
-  }
-  return false;
-};
-
-const checkSpot = () => {
-  for (let spot in gameBoard) {
-    if (gameBoard[spot][0] === "-") {
+  const switchPlayer = () => {
+    if (currentPlayer === players[0]) {
+      currentPlayer = players[1];
+    } else {
+      currentPlayer = players[0];
+    }
+  };
+  const checkForWin = (player) => {
+    if (
+      (player.symbol === gameBoard[1] &&
+        player.symbol === gameBoard[2] &&
+        player.symbol === gameBoard[3]) ||
+      (player.symbol === gameBoard[4] &&
+        player.symbol === gameBoard[5] &&
+        player.symbol === gameBoard[6]) ||
+      (player.symbol === gameBoard[7] &&
+        player.symbol === gameBoard[8] &&
+        player.symbol === gameBoard[9]) ||
+      (player.symbol === gameBoard[1] &&
+        player.symbol === gameBoard[4] &&
+        player.symbol === gameBoard[7]) ||
+      (player.symbol === gameBoard[2] &&
+        player.symbol === gameBoard[5] &&
+        player.symbol === gameBoard[8]) ||
+      (player.symbol === gameBoard[3] &&
+        player.symbol === gameBoard[6] &&
+        player.symbol === gameBoard[9]) ||
+      (player.symbol === gameBoard[1] &&
+        player.symbol === gameBoard[5] &&
+        player.symbol === gameBoard[9]) ||
+      (player.symbol === gameBoard[3] &&
+        player.symbol === gameBoard[5] &&
+        player.symbol === gameBoard[7])
+    ) {
       return true;
     }
-  }
-  return false;
-};
+  };
 
-/**
- *
- * checkSpot = () => {
- *   for (spot in gamebpard) {
- *        if (gameBoard[spot][0] === '-') {
- *            console.log(true)
- *        } else {
- *            console.log{false}
- *          }
- *    }
- * }
- *
- */
+  const checkSpot = () => {
+    for (let spot in gameBoard) {
+      if (gameBoard[spot][0] === "-") {
+        return true;
+      }
+    }
+    return false;
+  };
 
-while (checkWin(players)) {
-  makeMove();
-}
+  (function playGame() {
+    while (checkSpot()) {
+      makeMove(currentPlayer);
+      if (checkForWin(currentPlayer)) {
+        alert(`${currentPlayer.name} won!`);
+        console.log(`${currentPlayer.name} won!`);
+        break;
+      } else {
+        switchPlayer();
+      }
+    }
+    if (!checkSpot()) alert("Draw");
+    resetGameBoard();
+  })();
 
-/**
- *
- * while (there's a spot to play) {
- *    makeMove(curentPlayer)
- *    checkForWin = function() {
- *          if (player won) {
- *                alert(victoryMessage)
- *                break;
- *            } else {
- *                switchPlayer()
- *              }
- *     }
- *    return draw;
- * }
- *
- */
+  const computerMove = () => Math.ceil(Math.random() * 9);
 
-const switchPlayer = () => {
-  if (currentPlayer === players[0]) {
-    currentPlayer = players[1];
-  } else {
-    currentPlayer = players[0];
-  }
-};
-
-const computerMove = () => Math.ceil(Math.random() * 9);
-
-// return { getPlayerName };
-// })();
+  return { displayBoard };
+})();
