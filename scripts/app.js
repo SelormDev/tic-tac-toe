@@ -22,6 +22,7 @@ const gameBoard = {
 };
 
 let players = [];
+let currentPlayer = null;
 
 const createPlayer = (symbol) => {
   const name = prompt("Enter your name");
@@ -94,13 +95,32 @@ while (checkWin(players)) {
  *                switchPlayer()
  *              }
  *     }
+ *    return draw;
+ * }
+ *
+ */
+
+const switchPlayer = () => {
+  if (currentPlayer === players[0]) {
+    currentPlayer = players[1];
+  } else {
+    currentPlayer = players[0];
+  }
+};
+
+/**
+ *
+ * switchPlayer = () => {
+ *    if (currentPlayer === players[0]) {
+ *      currentPlayer = players[1]
+ *   } else {
+ *        currentPlayer = players[0]
+ *    }
  * }
  *
  */
 
 const computerMove = () => Math.ceil(Math.random() * 9);
-
-const switchPlayer = () => {};
 
 // return { getPlayerName };
 // })();
