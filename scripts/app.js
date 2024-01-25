@@ -10,15 +10,15 @@ Switch between players.
 
 // (function initializeGame() {
 const gameBoard = {
-  1: ["-"],
-  2: ["-"],
-  3: ["-"],
-  4: ["-"],
-  5: ["-"],
-  6: ["-"],
-  7: ["-"],
-  8: ["-"],
-  9: ["-"],
+  1: ["O"],
+  2: ["O"],
+  3: ["O"],
+  4: ["X"],
+  5: ["O"],
+  6: ["X"],
+  7: ["O"],
+  8: ["O"],
+  9: ["X"],
 };
 
 let players = [];
@@ -79,6 +79,29 @@ const checkWin = (player) => {
   return false;
 };
 
+const checkSpot = () => {
+  for (let spot in gameBoard) {
+    if (gameBoard[spot][0] === "-") {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ *
+ * checkSpot = () => {
+ *   for (spot in gamebpard) {
+ *        if (gameBoard[spot][0] === '-') {
+ *            console.log(true)
+ *        } else {
+ *            console.log{false}
+ *          }
+ *    }
+ * }
+ *
+ */
+
 while (checkWin(players)) {
   makeMove();
 }
@@ -107,18 +130,6 @@ const switchPlayer = () => {
     currentPlayer = players[0];
   }
 };
-
-/**
- *
- * switchPlayer = () => {
- *    if (currentPlayer === players[0]) {
- *      currentPlayer = players[1]
- *   } else {
- *        currentPlayer = players[0]
- *    }
- * }
- *
- */
 
 const computerMove = () => Math.ceil(Math.random() * 9);
 
