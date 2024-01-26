@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto-regular";
+  src: url("../fonts/roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "NameCat";
+  src: url(../fonts/namecat/Namecat.ttf);
+}
+
+@font-face {
+  font-family: "starborn";
+  src: url(../fonts/starborn/Starborn.ttf);
+}
+
+body {
+  font-family: "Roboto-regular", sans-serif;
+  font-size: 16px;
+  background-image: url(../img/bg2.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-family: "starborn", sans-serif;
+  font-size: 50px;
+  letter-spacing: 5px;
+  background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(15, 167, 53));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 60%;
+  height: 75vh;
+  background-color: rgba(255, 255, 255, 0.5);
+}
