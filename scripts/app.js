@@ -46,22 +46,29 @@ let gameBoard = {
 
 currentPlayer = players[0];
 
-// const makeMove = (player) => {
 cells.forEach((cell) => {
   cell.addEventListener("click", () => {
     if (cell.textContent !== "") {
       alert("Spot already taken. Try again.");
-      // makeMove(player);
     } else {
       cell.textContent = currentPlayer.symbol;
       gameBoard[cell.id] = currentPlayer.symbol;
 
       if (!checkSpot()) {
         alert("Draw");
+        resetGameBoard();
       } else if (checkForWin()) {
         alert(`${currentPlayer.name} won!`);
+        resetGameBoard();
       }
+
+        if (currentPlayer.symbol === "X") {
+  cell.style = "font-size: 4rem; color: red; font-weight: 800;";
+} else {
+  cell.style = "font-size: 4rem; color: green; font-weight: 800;";
+}
     }
+
   });
 });
 // };
@@ -118,12 +125,10 @@ const checkForWin = () => {
     (currentPlayer.symbol === gameBoard[3] &&
       currentPlayer.symbol === gameBoard[5] &&
       currentPlayer.symbol === gameBoard[7])
-  ) {
-    console.log(`${currentPlayer.name} won!`);
-    resetGameBoard();
+  )
     return true;
-  }
 
+  switchPlayer();
   return false;
 };
 
@@ -134,21 +139,6 @@ const checkSpot = () => {
 
   return false;
 };
-
-(function playGame() {
-  while (checkSpot()) {
-    makeMove(currentPlayer);
-    if (checkForWin(currentPlayer)) {
-      alert(`${currentPlayer.name} won!`);
-      console.log(`${currentPlayer.name} won!`);
-      break;
-    } else {
-      switchPlayer();
-    }
-  }
-  if (!checkSpot()) alert("Draw");
-  resetGameBoard();
-});
 
 const computerMove = () => Math.ceil(Math.random() * 9);
 
