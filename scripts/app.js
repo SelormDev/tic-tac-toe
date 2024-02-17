@@ -1,4 +1,11 @@
 "use strict";
+const cells = document.querySelectorAll(".cell");
+
+cells.forEach((cell) => {
+  cell.addEventListener("click", () => {
+    cell.textContent = "X";
+  });
+});
 
 (function initializeGame() {
   let gameBoard = {
@@ -74,6 +81,7 @@ ${gameBoard[7]} | ${gameBoard[8]} | ${gameBoard[9]}
       currentPlayer = players[0];
     }
   };
+
   const checkForWin = (player) => {
     if (
       (player.symbol === gameBoard[1] &&
@@ -106,11 +114,18 @@ ${gameBoard[7]} | ${gameBoard[8]} | ${gameBoard[9]}
   };
 
   const checkSpot = () => {
-    for (let spot in gameBoard) {
-      if (gameBoard[spot][0] === "-") {
+    // for (let spot in gameBoard) {
+    //   if (gameBoard[spot][0] === "-") {
+    //     return true;
+    //   }
+    // }
+
+    for (let cell in cells) {
+      if (cell.textContent === "") {
         return true;
       }
     }
+
     return false;
   };
 
@@ -132,4 +147,4 @@ ${gameBoard[7]} | ${gameBoard[8]} | ${gameBoard[9]}
   const computerMove = () => Math.ceil(Math.random() * 9);
 
   return { displayBoard };
-})();
+});
