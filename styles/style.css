@@ -53,16 +53,11 @@ h1 {
 .game__board {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   width: 380px;
   height: 380px;
   gap: 0.5rem;
   background-color: rgba(190, 27, 27, 0.5);
-}
-
-.game__board__row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
 }
 
 .cell {
