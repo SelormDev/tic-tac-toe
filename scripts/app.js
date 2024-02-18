@@ -11,6 +11,15 @@ const cell6 = document.getElementById("6").textContent;
 const cell7 = document.getElementById("7").textContent;
 const cell8 = document.getElementById("8").textContent;
 const cell9 = document.getElementById("9").textContent;
+const greetings = document.getElementById("greeting")
+const container = document.querySelector(".container")
+const playButton = document.getElementById("play")
+const resetButton = document.getElementById("reset")
+
+playButton.addEventListener("click", ()=>{
+  container.classList.toggle("hidden")
+  greetings.classList.toggle("hidden")
+})
 
 let players = [];
 let currentPlayer;
@@ -18,6 +27,7 @@ let currentPlayer;
 const createPlayer = (symbol) => {
   const name = prompt("Enter your name");
   players.push({ name, symbol });
+
   return { name, symbol };
 };
 
@@ -46,8 +56,15 @@ let gameBoard = {
 
 currentPlayer = players[0];
 
+ if (currentPlayer.symbol === "X") {
+        currentPlayer.style = "font-size: 4rem; color: red; font-weight: 800;";
+      } else {
+          currentPlayer.style = "font-size: 4rem; color: green; font-weight: 800;";
+      }
+
 cells.forEach((cell) => {
   cell.addEventListener("click", () => {
+
     if (cell.textContent !== "") {
       alert("Spot already taken. Try again.");
     } else {
@@ -56,18 +73,15 @@ cells.forEach((cell) => {
 
       if (!checkSpot()) {
         alert("Draw");
-        resetGameBoard();
+        // resetGameBoard();
       } else if (checkForWin()) {
         alert(`${currentPlayer.name} won!`);
-        resetGameBoard();
+        // resetGameBoard();
+        // return true
       }
-
-        if (currentPlayer.symbol === "X") {
-  cell.style = "font-size: 4rem; color: red; font-weight: 800;";
-} else {
-  cell.style = "font-size: 4rem; color: green; font-weight: 800;";
-}
     }
+
+    // switchPlayer()
 
   });
 });
@@ -140,7 +154,10 @@ const checkSpot = () => {
   return false;
 };
 
+resetButton.addEventListener("click", () => {
+  resetGameBoard()
+})
+
 const computerMove = () => Math.ceil(Math.random() * 9);
 
-// return { displayBoard };
-// });
+// })();

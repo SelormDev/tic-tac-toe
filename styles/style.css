@@ -39,6 +39,8 @@ h1 {
   margin-bottom: 2rem;
 }
 
+
+
 .container {
   display: flex;
   flex-direction: column;
@@ -58,6 +60,7 @@ h1 {
   height: 380px;
   gap: 0.5rem;
   background-color: rgba(190, 27, 27, 0.5);
+  border: 2px solid yellow;
 }
 
 .cell {
@@ -75,3 +78,7 @@ h1 {
   color: red;
   font-weight: 800;
 }*/
+
+.hidden {
+  display: none;
+}
